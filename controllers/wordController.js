@@ -18,12 +18,18 @@ function wordsController(Word) {
     if( req.query.type){
       query.type = req.query.type;
     }
-    Word.find(query, (err, word) => {
+    Word.find(query, (err, words) => {
       if (err){
         console.log('error');
         return res.send(err);
       }
-        return res.json(word);
+        const returnedWords = words.map((word) => {
+          let newWord = word.toJSON();
+          newWord.links = {};
+          newWord.links.self = `http://${req.headers.host}/api/words/${word._id}`;
+          return newWord;
+        });
+        return res.json(returnedWords);
     });
   }
   return { post, get };

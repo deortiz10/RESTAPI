@@ -23,7 +23,10 @@ function routes (Word) {
   });
   wordRouter.route('/words/:wordId')
       .get((req, res) => {
-        res.json(req.word);
+        const returnedWords = req.word.toJSON();
+        returnedWords.links = {}
+        returnedWords.links.FilteredByThisType = `http://${req.headers.host}/api/words/?type=${req.word.type}`;
+        res.json(returnedWords);
       })
       .put((req, res) => {
         const {word} = req;

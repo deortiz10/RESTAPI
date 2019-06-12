@@ -17,7 +17,7 @@ if(process.env.ENV === 'Test'){
   const db = mongoose.connect('mongodb://localhost/WordsAPI_Test');
 } else {
   console.log('this is a test');
-  mongoose.connect('mongodb://localhost/WordsAPI-prod', {useNewUrlParser: true});
+  mongoose.connect('mongodb://localhost/WordsAPI', {useNewUrlParser: true});
   var db = mongoose.connection;
 }
 
